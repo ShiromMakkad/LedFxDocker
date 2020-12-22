@@ -11,6 +11,6 @@ RUN apt-get install -y pulseaudio alsa-utils
 RUN adduser root pulse-access
 
 COPY setup-files /app
-RUN chmod a+wrx /app
+RUN chmod a+wrx /app/*
 
 ENTRYPOINT ./entrypoint.sh 
