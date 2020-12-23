@@ -1,0 +1,54 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# https://medium.com/swlh/using-github-actions-to-build-arm-based-docker-images-413a8d498ee
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:      
+      DOCKER_REGISTRY: hub.docker.com      
+      DOCKER_IMAGE: shirom/ledfx
+      DOCKER_TAG: latest      
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
+      DOCKER_TARGET_PLATFORM: linux/amd64,linux/arm/v7    
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Prepare
+        if: success()
+        run: |        
+          echo ::set-output name=docker_platform::${DOCKER_TARGET_PLATFORM}        
+          echo ::set-output name=docker_image::${DOCKER_REGISTRY}/${DOCKER_IMAGE}        
+          echo ::set-output name=version::${DOCKER_TAG}
+      
+      - name: Docker Login
+        if: success()
+        run: |        
+          echo "${DOCKER_PASSWORD}" | docker login ${DOCKER_REGISTRY} --username "${DOCKER_USERNAME}" --password-stdin
+        
+      - name: Run BuildX
+        if: success()
+        run: docker buildx build \        
+          --platform ${{ steps.prepare.outputs.docker_platform }} \             
+          --tag ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.version }} \        
+          --file ./Dockerfile \        
+          --output type=image,push=true .
