@@ -18,7 +18,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:      
-      DOCKER_REGISTRY: hub.docker.com      
+      DOCKER_REGISTRY: index.docker.io      
       DOCKER_IMAGE: shirom/ledfx
       DOCKER_TAG: latest      
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
