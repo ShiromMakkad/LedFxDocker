@@ -1,4 +1,4 @@
-# This is a basic workflow to help you get started with Actions
+# This Action has beem disabled because there's not enough resources to run it. A self-hosted runner would solve this
 
 name: CI
 
