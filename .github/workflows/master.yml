@@ -41,7 +41,7 @@ jobs:
       - name: Run BuildX
         if: success()
         run: docker buildx build \        
-          --platform ${DOCKER_TARGET_PLATFORM} \             
-          --tag ${DOCKER_IMAGE}:${DOCKER_TAG} \        
+          --platform ${{ env.DOCKER_TARGET_PLATFORM }} \             
+          --tag ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }} \        
           --file ./Dockerfile \        
           --output type=image,push=true .
