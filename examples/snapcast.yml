@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  snapserver:
+    image: ivdata/snapserver
+    container_name: snapserver
+    ports:
+      - 1704:1704
+      - 1705:1705
+    volumes:
+      - ./snapcast:/tmp/snapcast
+  ledfx:
+    image: shirom/ledfx
+    container_name: ledfx
+    environment: 
+      - HOST=host.docker.internal
+    ports:
+      - 8888:8888
+    volumes:
+      - ./ledfx-config:/root/.ledfx
