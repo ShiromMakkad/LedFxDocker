@@ -1,6 +1,5 @@
 # This compose file integrates LedFx with BalenaSound
 # It must be built using `balena push` and pushed onto a device running Balena OS
-# Clone the balenaSound git repo and keep the core/ and plugins/ folders for all the required Dockerfiles
 # If you find a way to remove this from Balena's ecosystem, let me know, but all of Balena's base images are compiled for amd64 and (presumably) use QEMU to emulate them
 # This makes it extremely difficult to deploy on a Pi without Balena, but you might be able to get it working on an x86 system. 
 
