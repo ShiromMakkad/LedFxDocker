@@ -1,0 +1,3 @@
+[submodule "examples/LedFx-balenaSound"]
+	path = examples/LedFx-balenaSound
+	url = https://github.com/ShiromMakkad/LedFx-balenaSound.git

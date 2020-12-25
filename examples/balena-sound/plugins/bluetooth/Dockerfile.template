@@ -1,6 +1,0 @@
-FROM balenablocks/bluetooth:%%BALENA_MACHINE_NAME%%
-
-WORKDIR /usr/src
-
-COPY start.sh /usr/src/
-CMD [ "/bin/bash", "/usr/src/start.sh" ]
