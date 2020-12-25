@@ -1,3 +1,5 @@
+[![Docker Pulls](https://img.shields.io/docker/pulls/shirom/ledfx.svg)](https://hub.docker.com/repository/docker/shirom/ledfx)
+
 # LedFxDocker
 A Docker Container for [LedFx](https://github.com/ahodges9/LedFx.git). 
 
