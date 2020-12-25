@@ -1,13 +1,13 @@
-[![Docker Pulls](https://img.shields.io/docker/pulls/shirom/ledfx.svg)](https://hub.docker.com/repository/docker/shirom/ledfx)
+[![Docker Pulls](https://img.shields.io/docker/pulls/shirom/ledfx.svg?style=for-the-badge&logo=github)](https://hub.docker.com/repository/docker/shirom/ledfx)
 
 # LedFxDocker
-A Docker Container for [LedFx](https://github.com/ahodges9/LedFx.git). 
+A Docker Image for [LedFx](https://github.com/ahodges9/LedFx.git). 
 
 ## Introduction
-Compiling LedFx to run on different systems is difficult because of all the dependencies. It's especially difficult on a Raspberry Pi (building LedFx on ARM takes over 2 hours). This container has everything built for you, and it can get audio from a [Snapcast server](https://github.com/badaix/snapcast) or a [named pipe](https://www.linuxjournal.com/article/2156).
+Compiling LedFx to run on different systems is difficult because of all the dependencies. It's especially difficult on a Raspberry Pi (building LedFx on ARM takes over 2 hours). This image has everything built for you, and it can get audio from a [Snapcast server](https://github.com/badaix/snapcast) or a [named pipe](https://www.linuxjournal.com/article/2156).
 
 ## Supported Architectures
-This container supports `x86-64` and `arm`. Docker will automatically pull the appropriate version. 
+This image supports `x86-64` and `arm`. Docker will automatically pull the appropriate version. 
 
 ## Setup
 ### docker-compose.yml
@@ -42,17 +42,17 @@ Variable | Function
 
 ## Sending Audio
 
-The trickiest part of using this container is getting audio into it. Dealing with audio device drivers is pretty painful; so much so that I spent 20 minutes getting LedFx installed and 50 hours squashing audio bugs. Don't worry, that work has already been done, so here are three approaches to get audio into the container:
+The trickiest part of using this image is getting audio into it. Dealing with audio device drivers is pretty painful; so much so that I spent 20 minutes getting LedFx installed and 50 hours squashing audio bugs. Don't worry, that work has already been done, so here are three approaches to get audio into the container:
 
 ### Snapcast
 
-[Snapcast](https://github.com/badaix/snapcast) is a server for playing music synchronously to multiple devices. This container can act as a snapclient device and connect to a snapserver simply by setting the `HOST` environment variable, but you need to get audio into Snapcast too. 
+[Snapcast](https://github.com/badaix/snapcast) is a server for playing music synchronously to multiple devices. This image can act as a snapclient device and connect to a snapserver simply by setting the `HOST` environment variable, but you need to get audio into Snapcast too. 
 
-Fundamentally, Snapcast's server gets its audio from a named pipe. This is where option two comes in; you can send audio directly into this container using its named pipe. Snapcast is useful if you have multiple speakers you want to connect to, you already have a snapserver, or you want to send audio from a separate device and have it play in both LedFx and over the system speaker out (`phone -> raspberry pi running Snapcast and LedFx -> speakers`). 
+Fundamentally, Snapcast's server gets its audio from a named pipe. This is where option two comes in; you can send audio directly into this image using its named pipe. Snapcast is useful if you have multiple speakers you want to connect to, you already have a snapserver, or you want to send audio from a separate device and have it play in both LedFx and over the system speaker out (`phone -> raspberry pi running Snapcast and LedFx -> speakers`). 
 
 ### Named Pipe
 
-This is a great approach if you just want to play system audio or if you're connecting it to some other audio service, and you don't need the extra bloat from Snapcast. Because this container receives data just like a snapserver, any tutorial you find for getting audio into a snapserver will work with this container. [Setup of audio players/server](https://github.com/badaix/snapcast/blob/master/doc/player_setup.md) provides instructions on how to connect Mopidy, FFmpeg, PulseAudio, Airplay, Spotify, VLC, and more. 
+This is a great approach if you just want to play system audio or if you're connecting it to some other audio service, and you don't need the extra bloat from Snapcast. Because this image receives data just like a snapserver, any tutorial you find for getting audio into a snapserver will work with this image. [Setup of audio players/server](https://github.com/badaix/snapcast/blob/master/doc/player_setup.md) provides instructions on how to connect Mopidy, FFmpeg, PulseAudio, Airplay, Spotify, VLC, and more. 
 
 To play system audio, you could use Docker's `--device` flag or use FFmpeg to record system audio and send it to the pipe. 
 
@@ -62,7 +62,7 @@ Check out the `examples/` folder for ideas. Once you've completed your setup, co
 
 ### Balena Sound
 
-[balenaSound](https://github.com/balenalabs/balena-sound) is a Snapserver that's already connected to Bluetooth, Airplay, Spotify, and UPNP that's very easy to set up. Unfortunately, you have to be fully integrated into Balena's system to use it. This means deploying on balenaOS and using Balena's build tools. However, I've integrated this container into their ecosystem, so it will run alongside balenaSound on the same device. 
+[balenaSound](https://github.com/balenalabs/balena-sound) is a Snapserver that's already connected to Bluetooth, Airplay, Spotify, and UPNP that's very easy to set up. Unfortunately, you have to be fully integrated into Balena's system to use it. This means deploying on balenaOS and using Balena's build tools. However, I've integrated this image into their ecosystem, so it will run alongside balenaSound on the same device. 
 
 Just click the button below to deploy it!
 
