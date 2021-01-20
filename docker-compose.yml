@@ -4,6 +4,7 @@ services:
   ledfx:
     image: ledfx:latest
     container_name: ledfx
+    network_mode: host
     build:
       context: .
     environment: 
