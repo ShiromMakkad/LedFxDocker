@@ -5,6 +5,8 @@ WORKDIR /app
 RUN pip install Cython
 RUN apt-get update
 RUN apt-get install -y portaudio19-dev
+
+#https://gnanesh.me/avahi-docker-non-root.html
 RUN set -ex \
  && apt-get update && apt-get install -y --no-install-recommends avahi-daemon libnss-mdns \
  # allow hostnames with more labels to be resolved. so that we can
