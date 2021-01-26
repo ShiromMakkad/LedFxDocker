@@ -13,4 +13,6 @@ if [[ -v HOST ]]; then
     ./snapcast.sh
 fi
 
-ledfx
+mkdir /app/ledfx-config
+mv -vn /app/config.yaml /app/ledfx-config/
+ledfx -c /app/ledfx-config 

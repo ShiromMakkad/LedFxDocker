@@ -1,7 +1,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/shirom/ledfx.svg?style=for-the-badge&logo=github)](https://hub.docker.com/repository/docker/shirom/ledfx)
 
 # LedFxDocker
-A Docker Image for [LedFx](https://github.com/ahodges9/LedFx.git). 
+A Docker Image for [LedFx](https://github.com/LedFx/LedFx.git). 
 
 ## Introduction
 Compiling LedFx to run on different systems is difficult because of all the dependencies. It's especially difficult on a Raspberry Pi (building LedFx on ARM takes over 2 hours). This image has everything built for you, and it can get audio from a [Snapcast server](https://github.com/badaix/snapcast) or a [named pipe](https://www.linuxjournal.com/article/2156).
@@ -16,7 +16,7 @@ version: '3'
 
 services:
   ledfx:
-    image: shirom/ledfx
+    image: shirom/ledfx 
     container_name: ledfx
     environment: 
       - HOST=host.docker.internal
@@ -24,13 +24,13 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - ./ledfx-config:/root/.ledfx
+      - ./ledfx-config:/app/ledfx-config
       - ~/audio:/app/audio
 ```
 ### Volumes
 Volume | Function 
 --- | -------- 
-`/root/.ledfx` | This is where the LedFx configuration files are stored. Most people won't need to change anything here manually, so feel free to use a [named volume](https://stackoverflow.com/questions/43248988/how-do-named-volumes-work-in-docker).
+`/app/ledfx-config` | This is where the LedFx configuration files are stored. Most people won't need to change anything here manually, so feel free to use a [named volume](https://stackoverflow.com/questions/43248988/how-do-named-volumes-work-in-docker).
 `/app/audio` | This folder contains a [named pipe](https://www.linuxjournal.com/article/2156) called `stream` that you can write audio data to. This can be connected to Mopidy, FFmpeg, system audio, or more. See [Sending Audio](#sending-audio) for more information. This volume doesn't need to be set if the `FORMAT` environment variable isn't set. 
 
 ### Environment Variables
