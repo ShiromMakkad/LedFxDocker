@@ -13,5 +13,5 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - ./ledfx-config:/root/.ledfx
+      - ./ledfx-config:/app/ledfx-config
       - ~/audio:/app/audio

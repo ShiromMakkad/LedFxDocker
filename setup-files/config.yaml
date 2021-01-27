@@ -1,0 +1,6 @@
+dev_mode: false
+devices: []
+host: 0.0.0.0
+max_workers: 10
+port: 8888
+presets: {}
