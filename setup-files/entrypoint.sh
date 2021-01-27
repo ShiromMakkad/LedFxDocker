@@ -1,5 +1,6 @@
 #!/bin/bash
-# start avahi-daemon
+
+# Start avahi-daemon for network discovery
 avahi-daemon --daemonize --no-drop-root
 
 # https://superuser.com/questions/1539634/pulseaudio-daemon-wont-start-inside-docker

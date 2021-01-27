@@ -2,7 +2,6 @@ FROM rcarmo/ubuntu-python
 
 WORKDIR /app
 
-RUN pip install Cython
 RUN apt-get update
 
 # https://gnanesh.me/avahi-docker-non-root.html
@@ -26,6 +25,7 @@ RUN apt-get install -y gcc \
                        portaudio19-dev \
                        pulseaudio
 RUN pip install  --upgrade pip wheel setuptools
+RUN pip install Cython
 RUN pip install git+https://github.com/LedFx/LedFx
 
 RUN apt-get install -y pulseaudio alsa-utils
