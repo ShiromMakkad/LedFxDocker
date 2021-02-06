@@ -13,11 +13,11 @@ if [[ -v HOST ]]; then
     ./snapcast.sh
 fi
 
+mkdir /app/ledfx-config
 mv -vn /app/squeeze.conf /app/ledfx-config/
 if [[ -v SQUEEZE ]]; then
     ./squeeze.sh
 fi
 
-mkdir /app/ledfx-config
 mv -vn /app/config.yaml /app/ledfx-config/
 ledfx -c /app/ledfx-config 
