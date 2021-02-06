@@ -14,7 +14,7 @@ if [[ -v HOST ]]; then
 fi
 
 mkdir /app/ledfx-config
-mv -vn /app/squeeze.conf /app/ledfx-config/
+
 if [[ -v SQUEEZE ]]; then
     ./squeeze.sh
 fi
