@@ -9,6 +9,7 @@ services:
     environment: 
       - HOST=host.docker.internal
       - FORMAT=-r 44100 -f S16_LE -c 2
+      - SQUEEZE=0
     ports:
       - 8888:8888
     volumes:
