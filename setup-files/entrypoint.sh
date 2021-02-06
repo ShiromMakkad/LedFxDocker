@@ -13,6 +13,7 @@ if [[ -v HOST ]]; then
     ./snapcast.sh
 fi
 
+mv -vn /app/squeeze.conf /app/ledfx-config/
 if [[ -v SQUEEZE ]]; then
     ./squeeze.sh
 fi
