@@ -16,6 +16,8 @@ RUN pip install git+https://github.com/LedFx/LedFx
 RUN apt-get install -y pulseaudio alsa-utils
 RUN adduser root pulse-access
 
+RUN apt-get install -y squeezelite 
+
 COPY setup-files/ /app/
 RUN chmod a+wrx /app/*
 
