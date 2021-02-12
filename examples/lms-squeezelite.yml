@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  ledfx:
+    image: shirom/ledfx
+    container_name: ledfx
+    environment: 
+      - SQUEEZE=1
+    ports:
+      - 8888:8888
+    volumes:
+      - ./ledfx-config:/app/ledfx-config
+      - ~/audio:/app/audio
+  lms:
+    container_name: lms
+    image: lmscommunity/logitechmediaserver
+    volumes:
+      - ./lms/config:/config:rw
+      - ./lms/music:/music:ro
+      - ./lms/playlist:/playlist:ro
+    ports:
+      - 9000:9000/tcp
+      - 9090:9090/tcp
