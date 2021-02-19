@@ -21,6 +21,7 @@ services:
     environment: 
       - HOST=host.docker.internal
       - FORMAT=-r 44100 -f S16_LE -c 2
+      - SQUEEZE=1
     ports:
       - 8888:8888
     volumes:
@@ -39,10 +40,11 @@ Variable | Function
 --- | --------
 `HOST` | This is the IP of the Snapcast server. Keep in mind that this IP is resolved from inside the container unless you use [host networking](https://docs.docker.com/network/host/). To refer to other docker containers in [bridge networking](https://docs.docker.com/network/bridge/) (the default for any two containers in the same compose file), just use the name of the container. To refer to `127.0.0.1` use `host.docker.internal`. 
 `FORMAT` | This variable specifies the format of the audio coming into `/app/audio/stream`. It can use any of the options defined in [aplay](https://linux.die.net/man/1/aplay). The example shown above corresponds to 44100hz, 16 bits, and 2 channels, the default for most applications. 
+`SQUEEZE` | Setting this variable to `1` allows this image to act as a [squeezelite](https://github.com/ralph-irving/squeezelite) client that can connect to a [Logitech Media Server](https://mysqueezebox.com/download).
 
 ## Sending Audio
 
-The trickiest part of using this image is getting audio into it. Dealing with audio device drivers is pretty painful; so much so that I spent 20 minutes getting LedFx installed and 50 hours squashing audio bugs. Don't worry, that work has already been done, so here are three approaches to get audio into the container:
+The trickiest part of using this image is getting audio into it. Dealing with audio device drivers is pretty painful; so much so that I spent 20 minutes getting LedFx installed and 50 hours squashing audio bugs. Don't worry, that work has already been done, so here are four approaches to get audio into the container:
 
 ### Snapcast
 
@@ -59,6 +61,10 @@ To play system audio, you could use Docker's `--device` flag or use FFmpeg to re
 If you want to use a method not mentioned here or one that doesn't have an explicit named pipe option, your easiest method would probably be playing the audio on the system; then use a tool like FFmpeg or PulseAudio to record the system's audio and send it to the container. 
 
 Check out the `examples/` folder for ideas. Once you've completed your setup, consider sharing your compose file; I'm always looking for new examples to add. 
+
+### Logitech Media Server
+
+You can send in audio from a [Logitech Media Server](https://mysqueezebox.com/download). You'll need to set the environment variable `SQUEEZE=1`. There's a docker example of this in the `examples/` folder. To connect, simply setup your Logitech Media Server on the same network as this container, and your server will automatically detect the LedFx as a client and provide an option to connect. If your media server is on a different network or is not detecting LedFx, you can configure `squeeze.conf` in the `setup-files/` folder and build the container locally.
 
 ### Balena Sound
 
