@@ -20,4 +20,5 @@ fi
 mkdir /app/ledfx-config
 
 mv -vn /app/config.yaml /app/ledfx-config/
+mkdir /root/.ledfx
 ledfx -c /app/ledfx-config 
