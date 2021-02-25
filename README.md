@@ -12,8 +12,8 @@ This image supports `x86-64` and `arm`. Docker will automatically pull the appro
 ## Tags 
 Tag | Description 
 --- | -------- 
-`latest` | This is the master branch of LedFx. Right now, the master branch is stable, but extremely outdated. I recommend using the dev branch.
-`dev` | This is the dev branch of LedFx. 
+`latest` | The master branch of LedFx. Right now, the master branch is stable, but extremely outdated. I recommend using the dev branch.
+`dev` | The dev branch of LedFx. 
 
 ## Setup
 ### docker-compose.yml
