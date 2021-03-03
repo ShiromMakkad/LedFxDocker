@@ -8,13 +8,20 @@ TuneBlade is a simple tray utility that lets you stream system-wide audio to Air
 
 To avoid loop back echo when streaming from windows we need to use virtual audio output this can be done whit [VB-CABLE Virtual Audio Device](https://vb-audio.com/Cable/index.htm) after installation of VB-CABLE  in TuneBlade settings under Audio Capture we select `Specific Endpoint` and add `VoiceMeeter Input` like endpoint device, if Shairport Sync is running whit out a problem you can see the Airplay endpoint and you can start streaming to it 
 
-Then on your Windows PC go to  `Setting > Sound > Advanced sound options`, change audio output of your audio application to `VoiceMeeter Input` at this stage you will lost audio from that aplication on your speakers, than you need to stream audio back to your speakers from the Snapcast server using the [Snap.net](https://github.com/stijnvdb88/Snap.Net/releases) or Snapcast WebUI note if you using Web Browser (like Chrome, Firefox, Edge) to play sound from your pc for example playing Youtube songs  you cannot use same browser to listen from Snapcast server WebUI you need to use diferent browser or Snap.Net.
+Then on your Windows PC go to  `Setting > Sound > Advanced sound options`, change audio output of your audio application to `VoiceMeeter Input` at this stage you will lost audio from that application on your speakers, than you need to stream audio back to your speakers from the Snapcast server using the [Snap.net](https://github.com/stijnvdb88/Snap.Net/releases) or Snapcast WebUI note if you using Web Browser (like Chrome, Firefox, Edge) to play sound from your pc for example playing Youtube songs  you cannot use same browser to listen from Snapcast server WebUI you need to use different browser or Snap.Net.
+
+
+  **Airplay**
+
+
+If you own apple device IPhone, IPad or Mac Pc you can start streaming to the Shairport Sync endpoint you don't need TuneBlade
 
 
    **Shairport Sync**
 
 
-When Shairport Sync is run whit  `-o pipe` it's output to FIFO file what is located in `/tmp` folder inside of the docker container whit two pipes `shairport-sync-audio` and `shairport-sync-metadata` the output audio format of the `shairport-sync-audio`  is `44100:16:2` also Shairport Sync must be run on the host network
+When Shairport Sync is run whit  `-o pipe` it's output to FIFO file what is located in `/tmp` folder inside of the docker container whit two pipes `shairport-sync-audio` and `shairport-sync-metadata` the output audio format of the `shairport-sync-audio`  is `44100:16:2` also Shairport Sync must be run on the host network.
+Shairport Sync can be run whit the `-a Somename` option at the entrypoint `entrypoint: /start.sh -a Somename -o pipe` to have specific name for the Airplay receiver by default it uses hostname of the host os
 
 
    **Snapcast Server**
@@ -24,8 +31,13 @@ Provided `snapserver.conf` is override for the existing one and will provide two
 You don't need to use Mopidy if you just like to stream from Windows Pc  you can remove the line for Mopidy in the `snapserver.conf`  and delete the mopidy service provided in the `shairport.yml` if you using own Snapcast Server you can adjusted by just adding extra stream `stream = pipe:///tmp/snapcast/shairport-sync-audio?name=Airplay&sampleformat=44100:16:2` 
 
 
+# Output audio from speaker connected  to the host
+
+You can output streamed audio from the speaker connected to the host where containers are running this can be done by running Snapcast Client on the host and connected to the Snapcast Server  or by running other docker container whit Snapcast Client and passing the sound card to container whit `--device /dev/snd` more info can be fount at [Snapcast  github](https://github.com/badaix/snapcast#client)
+
 # Some Notes / Troubleshooting
 
+- Airplay receiver visible in TuneBlade but not visible on Mac devices (IPhone IPad) this is happening if container get recreated or change of the Airplay name solution restarting the avahi-daemon on the host `systemctl restart avahi-daemon` or reboot the host `sudo reboot`
 - Check owner and group of created folders (to change you can `sudo chown -c user:group *` inside the folder where your docker-compose.yml is. user:group was pi:pi for me)
 - [Snap.net](https://github.com/stijnvdb88/Snap.Net/releases) client could be useful
 - Clear ledfx-config and restart
