@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  mopidy-pi:
+    image: ivdata/mopidy:latest
+    hostname: mopidy
+    container_name: mopidy
+    ports:
+      - 6680:6680
+      - 6600:6600
+    volumes:
+      - ./fifo:/tmp/snapcast/
+      - ./music:/media/music
+      - ./mopidydata:/mopidy
+  snapserver:
+    image: ivdata/snapserver:latest
+    hostname: snapcastserver
+    container_name: snapcastserver
+    ports:
+      - 1704:1704
+      - 1705:1705
+      - 1780:1780
+    volumes:
+      - type: bind
+        source: ${PWD}/snapserver.conf
+        target: /etc/snapserver.conf
+        read_only: true
+      - ./fifo:/tmp/snapcast/
+  ledfx:
+    image: shirom/ledfx
+    hostname: LedFX
+    container_name: ledfx
+    environment:
+      - HOST=snapcastserver
+#      - FORMAT=-r 48000 -f S16_LE -c 2 -t raw
+    ports:
+      - 8888:8888
+    volumes:
+      - ./ledfx-config:/root/.ledfx
+      - ./fifo:/tmp/snapcast/
+  shairport:
+    image: mikebrady/shairport-sync
+    network_mode: host
+    container_name: Shairport
+    volumes:
+      - ./fifo:/tmp
+    entrypoint: /start.sh  -o pipe
