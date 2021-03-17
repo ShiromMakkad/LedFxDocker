@@ -1,4 +1,4 @@
-FROM rcarmo/ubuntu-python
+FROM python:3.9-slim-buster
 
 WORKDIR /app
 
@@ -15,6 +15,11 @@ RUN pip install git+https://github.com/LedFx/LedFx
 
 RUN apt-get install -y pulseaudio alsa-utils
 RUN adduser root pulse-access
+
+RUN apt-get install -y wget \
+                       libavahi-client3 \
+                       libavahi-common3 \
+                       apt-utils
 
 RUN apt-get install -y squeezelite 
 

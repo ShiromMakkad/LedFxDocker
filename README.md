@@ -25,7 +25,7 @@ services:
     image: shirom/ledfx 
     container_name: ledfx
     environment: 
-      - HOST=host.docker.internal
+      - HOST=192.168.0.15
       - FORMAT=-r 44100 -f S16_LE -c 2
       - SQUEEZE=1
     ports:
@@ -44,7 +44,7 @@ Volume | Function
 Each variable corresponds to a different input method. One of the two variables must be set to send audio into the container (or you can set both). 
 Variable | Function
 --- | --------
-`HOST` | This is the IP of the Snapcast server. Keep in mind that this IP is resolved from inside the container unless you use [host networking](https://docs.docker.com/network/host/). To refer to other docker containers in [bridge networking](https://docs.docker.com/network/bridge/) (the default for any two containers in the same compose file), just use the name of the container. To refer to `127.0.0.1` use `host.docker.internal`. 
+`HOST` | This is the IP of the Snapcast server. Keep in mind that this IP is resolved from inside the container unless you use [host networking](https://docs.docker.com/network/host/). To refer to other docker containers in [bridge networking](https://docs.docker.com/network/bridge/) (the default for any two containers in the same compose file), just use the name of the container. To refer to `127.0.0.1` use `host.docker.internal` (compatibilty varies greatly between platforms and versions). 
 `FORMAT` | This variable specifies the format of the audio coming into `/app/audio/stream`. It can use any of the options defined in [aplay](https://linux.die.net/man/1/aplay). The example shown above corresponds to 44100hz, 16 bits, and 2 channels, the default for most applications. 
 `SQUEEZE` | Setting this variable to `1` allows this image to act as a [squeezelite](https://github.com/ralph-irving/squeezelite) client that can connect to a [Logitech Media Server](https://mysqueezebox.com/download).
 

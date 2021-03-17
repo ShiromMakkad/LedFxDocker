@@ -13,5 +13,7 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - ./ledfx-config:/app/ledfx-config
+      - ~/ledfx-config:/app/ledfx-config
       - ~/audio:/app/audio
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
