@@ -12,7 +12,7 @@ This image supports `x86-64` and `arm`. Docker will automatically pull the appro
 ## Tags 
 Tag | Description 
 --- | -------- 
-`latest` | The master branch of LedFx. Right now, the master branch is stable, but extremely outdated. I recommend using the dev branch.
+`latest` | The master branch of LedFx. 
 `dev` | The dev branch of LedFx. 
 
 ## Setup
@@ -31,7 +31,7 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - ./ledfx-config:/app/ledfx-config
+      - ~/ledfx-config:/app/ledfx-config
       - ~/audio:/app/audio
 ```
 ### Volumes
