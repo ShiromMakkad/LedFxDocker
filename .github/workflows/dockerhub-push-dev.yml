@@ -17,7 +17,7 @@ on:
 # https://github.com/docker/build-push-action/blob/master/docs/advanced/multi-platform.md
 jobs:
   build-push:
-    runs-on: Shirom-Server-LedFx
+    runs-on: ubuntu-latest
     steps:
       -
         name: Checkout
