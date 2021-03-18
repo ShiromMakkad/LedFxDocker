@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster
+FROM python:3.9-buster
 
 WORKDIR /app
 
@@ -7,13 +7,14 @@ RUN apt-get update
 RUN apt-get install -y gcc \
                        git \
                        libatlas3-base \
-                       libatlas3-base \
+		       libavformat58 \
                        portaudio19-dev \
+		       avahi-daemon \
                        pulseaudio 
-RUN pip install  --upgrade pip wheel setuptools
+RUN pip install --upgrade pip wheel setuptools
 RUN pip install git+https://github.com/LedFx/LedFx
 
-RUN apt-get install -y pulseaudio alsa-utils
+RUN apt-get install -y alsa-utils
 RUN adduser root pulse-access
 
 RUN apt-get install -y wget \
