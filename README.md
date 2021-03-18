@@ -15,6 +15,8 @@ Tag | Description
 `latest` | The master branch of LedFx. 
 `dev` | The dev branch of LedFx. 
 
+Feel free to open an issue if either of these is out of date
+
 ## Setup
 ### docker-compose.yml
 ```
@@ -35,13 +37,15 @@ services:
       - ~/audio:/app/audio
 ```
 ### Volumes
+
 Volume | Function 
 --- | -------- 
 `/app/ledfx-config` | This is where the LedFx configuration files are stored. Most people won't need to change anything here manually, so feel free to use a [named volume](https://stackoverflow.com/questions/43248988/how-do-named-volumes-work-in-docker).
 `/app/audio` | This folder contains a [named pipe](https://www.linuxjournal.com/article/2156) called `stream` that you can write audio data to. This can be connected to Mopidy, FFmpeg, system audio, or more. See [Sending Audio](#sending-audio) for more information. This volume doesn't need to be set if the `FORMAT` environment variable isn't set. 
 
 ### Environment Variables
-Each variable corresponds to a different input method. One of the two variables must be set to send audio into the container (or you can set both). 
+Each variable corresponds to a different input method. One of the following variables must be set to send audio into the container (or you can set all of them). 
+
 Variable | Function
 --- | --------
 `HOST` | This is the IP of the Snapcast server. Keep in mind that this IP is resolved from inside the container unless you use [host networking](https://docs.docker.com/network/host/). To refer to other docker containers in [bridge networking](https://docs.docker.com/network/bridge/) (the default for any two containers in the same compose file), just use the name of the container. To refer to `127.0.0.1` use `host.docker.internal` (compatibilty varies greatly between platforms and versions). 
