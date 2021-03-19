@@ -36,6 +36,9 @@ services:
       - ~/ledfx-config:/app/ledfx-config
       - ~/audio:/app/audio
 ```
+
+You can add support for network discovery by adding `network_mode: host` to the dockerfile. See [use host networking](https://docs.docker.com/network/host/) for more information. Adding this can break compatibilty on Windows and Mac. 
+
 ### Volumes
 
 Volume | Function 

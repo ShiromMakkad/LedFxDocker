@@ -17,6 +17,16 @@ RUN pip install git+https://github.com/LedFx/LedFx@dev
 RUN apt-get install -y alsa-utils
 RUN adduser root pulse-access
 
+# https://gnanesh.me/avahi-docker-non-root.html
+RUN apt-get install -y libnss-mdns
+RUN echo '*' > /etc/mdns.allow \
+	&& sed -i "s/hosts:.*/hosts:          files mdns4 dns/g" /etc/nsswitch.conf \
+	&& printf "[server]\nenable-dbus=no\n" >> /etc/avahi/avahi-daemon.conf \
+	&& chmod 777 /etc/avahi/avahi-daemon.conf \
+	&& mkdir -p /var/run/avahi-daemon \
+	&& chown avahi:avahi /var/run/avahi-daemon \
+	&& chmod 777 /var/run/avahi-daemon
+
 RUN apt-get install -y wget \
                        libavahi-client3 \
                        libavahi-common3 \

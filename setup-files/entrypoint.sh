@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Start avahi daemon for WLED auto discovery
+avahi-daemon --daemonize --no-drop-root
+
 # https://superuser.com/questions/1539634/pulseaudio-daemon-wont-start-inside-docker
 # Start the pulseaudio server
 rm -rf /var/run/pulse /var/lib/pulse /root/.config/pulse
