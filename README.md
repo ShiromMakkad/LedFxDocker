@@ -110,7 +110,7 @@ docker build -t shirom/ledfx .
 ```
 To build for `x86-64` and `arm` use:
 
-`docker buildx build --platform linux/amd64,linux/arm/v7 --tag shirom/ledfx --output type=image,push=false .`
+`docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --tag shirom/ledfx --output type=image,push=false .`
 
 Keep in mind, this command takes over 2 hours to finish for `arm` because of the `aubio` installation.
 
