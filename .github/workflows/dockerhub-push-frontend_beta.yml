@@ -4,12 +4,12 @@ on:
   push:
     branches: [ master ]
     paths:
-      - Dockerfile.dev
+      - Dockerfile.frontend_beta
       - setup-files/**
   pull_request:
     branches: [ master ]
     paths:
-      - Dockerfile.dev
+      - Dockerfile.frontend_beta
       - setup-files/**
 
   workflow_dispatch:
@@ -39,7 +39,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile.dev
+          file: ./Dockerfile.frontend_beta
           platforms: linux/amd64,linux/arm/v7
           push: true
-          tags: shirom/ledfx:dev
+          tags: shirom/ledfx:frontend_beta

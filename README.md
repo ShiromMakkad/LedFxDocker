@@ -13,7 +13,7 @@ This image supports `x86-64` and `arm`. Docker will automatically pull the appro
 Tag | Description 
 --- | -------- 
 `latest` | The master branch of LedFx. 
-`dev` | The dev branch of LedFx. 
+`frontend_beta` | The frontend_beta branch of LedFx. 
 
 Feel free to open an issue if either of these is out of date
 
