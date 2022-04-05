@@ -7,7 +7,7 @@ A Docker Image for [LedFx](https://github.com/LedFx/LedFx.git).
 Compiling LedFx to run on different systems is difficult because of all the dependencies. It's especially difficult on a Raspberry Pi (building LedFx on ARM takes over 2 hours). This image has everything built for you, and it can get audio from a [Snapcast server](https://github.com/badaix/snapcast) or a [named pipe](https://www.linuxjournal.com/article/2156).
 
 ## Supported Architectures
-This image supports `x86-64` and `arm`. Docker will automatically pull the appropriate version. 
+This image supports `x86-64`, `arm` and `arm64`. Docker will automatically pull the appropriate version. 
 
 ## Tags 
 Tag | Description 
