@@ -13,7 +13,7 @@ services:
     image: shirom/ledfx
     container_name: ledfx
     environment: 
-      - HOST=host.docker.internal
+      - HOST=snapserver
     ports:
       - 8888:8888
     volumes:

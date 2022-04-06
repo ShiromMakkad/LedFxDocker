@@ -13,7 +13,7 @@ if [[ -v FORMAT ]]; then
 fi
 
 if [[ -v HOST ]]; then
-    ./snapcast.sh
+    snapclient --host "$HOST" --daemon 1
 fi
 
 if [[ -v SQUEEZE ]]; then

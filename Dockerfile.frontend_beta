@@ -33,6 +33,7 @@ RUN apt-get install -y wget \
                        apt-utils
 
 RUN apt-get install -y squeezelite 
+RUN apt-get install -y snapclient
 
 COPY setup-files/ /app/
 RUN chmod a+wrx /app/*
