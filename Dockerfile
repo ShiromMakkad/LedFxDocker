@@ -3,14 +3,15 @@ FROM python:3.9-buster
 WORKDIR /app
 
 RUN pip install Cython
+RUN dpkg --add-architecture armhf
 RUN apt-get update
 RUN apt-get install -y gcc \
                        git \
                        libatlas3-base \
-					   libavformat58 \
-					   portaudio19-dev \
-					   avahi-daemon \
-					   pulseaudio
+		       libavformat58 \
+		       portaudio19-dev \
+		       avahi-daemon \
+		       pulseaudio
 RUN pip install --upgrade pip wheel setuptools
 RUN pip install lastversion
 RUN pip install git+https://github.com/LedFx/LedFx
@@ -29,10 +30,10 @@ RUN echo '*' > /etc/mdns.allow \
 	&& chmod 777 /var/run/avahi-daemon
 
 RUN apt-get install -y wget \
-                       libavahi-client3 \
-                       libavahi-common3 \
+                       libavahi-client3:armhf \
+                       libavahi-common3:armhf \
                        apt-utils \
-					   libvorbisidec1
+		       libvorbisidec1:armhf
 
 RUN apt-get install -y squeezelite 
 
@@ -40,8 +41,7 @@ ARG TARGETPLATFORM
 RUN if [ "$TARGETPLATFORM" = "linux/arm/v7" ]; then ARCHITECTURE=armhf; elif [ "$TARGETPLATFORM" = "linux/arm64" ]; then ARCHITECTURE=armhf; else ARCHITECTURE=amd64; fi \
     && lastversion download badaix/snapcast --format assets --filter "^snapclient_(?:(\d+)\.)?(?:(\d+)\.)?(?:(\d+)\-)?(?:(\d)(_$ARCHITECTURE\.deb))$" -o snapclient.deb
 
-RUN dpkg -i snapclient.deb
-RUN apt-get -fy install
+RUN apt-get install -fy ./snapclient.deb
 
 COPY setup-files/ /app/
 RUN chmod a+wrx /app/*
